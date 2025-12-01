@@ -3,10 +3,36 @@ services:
     image: postgres:latest
     container_name: my_postgres
     environment:
+      POSTGRES_DB: mydb
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydb
     ports:
       - "5432:5432"
     volumes:
-      - ./initdb:/docker-entrypoint-initdb.d
+      - ./postgres-init:/docker-entrypoint-initdb.d
+
+  mysql:
+    image: mysql:latest
+    container_name: my_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+
+  mariadb:
+    image: mariadb:latest
+    container_name: my_mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpassword
+      MARIADB_DATABASE: mydb
+      MARIADB_USER: myuser
+      MARIADB_PASSWORD: mypassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mariadb-init:/docker-entrypoint-initdb.d
