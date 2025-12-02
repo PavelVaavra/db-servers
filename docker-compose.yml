@@ -24,15 +24,31 @@ services:
     volumes:
       - ./mysql-init:/docker-entrypoint-initdb.d
 
-  mariadb:
-    image: mariadb:latest
-    container_name: my_mariadb
-    environment:
-      MARIADB_ROOT_PASSWORD: rootpassword
-      MARIADB_DATABASE: mydb
-      MARIADB_USER: myuser
-      MARIADB_PASSWORD: mypassword
-    ports:
-      - "3307:3306"
-    volumes:
-      - ./mariadb-init:/docker-entrypoint-initdb.d
+  mssql:
+      image: mcr.microsoft.com/mssql/server:2022-latest
+      container_name: my_mssql
+      environment:
+        ACCEPT_EULA: "Y"
+        MSSQL_SA_PASSWORD: "YourStrong!Passw0rd"
+        MSSQL_PID: "Developer"   # or "Express", "Standard", etc.
+      ports:
+        - "1433:1433"
+      networks:
+        - mssql-net
+  
+  mssql-init:
+      image: mcr.microsoft.com/mssql-tools
+      depends_on:
+        - mssql
+      volumes:
+        - ./mssql-init:/scripts
+      networks:
+        - mssql-net
+      entrypoint: >
+        /bin/bash -c "
+        sleep 25 &&
+        /opt/mssql-tools/bin/sqlcmd -S mssql -U SA -P 'YourStrong!Passw0rd' -i /scripts/init.sql
+        "
+networks:
+  mssql-net:
+

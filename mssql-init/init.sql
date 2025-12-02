@@ -1,10 +1,15 @@
+CREATE DATABASE mydb;
+GO
+
+USE mydb;
+GO
+
 -- Create a table
 CREATE TABLE employees (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name TEXT NOT NULL,
-    position TEXT NOT NULL
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name NVARCHAR(100) NOT NULL,
+    position NVARCHAR(100) NOT NULL
 );
-
 
 -- Insert sample data
 INSERT INTO employees (name, position) VALUES
