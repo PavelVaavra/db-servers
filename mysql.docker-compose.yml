@@ -1,0 +1,24 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: my_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+      
+  mappdatabase:
+    image: th0masis/mappdatabase:6_0
+    container_name: mappdatabase-01
+    environment:
+      # DB_HOST: localhost
+      DB_TYPE: mysql
+      # DB_PORT: 3306
+      POLL_INTERVAL: 20
+    ports:
+      - "86:85"
