@@ -1,12 +1,12 @@
 services:
   mysql:
-    image: mysql:latest
-    container_name: my_mysql
+    image: mariadb:latest
+    container_name: my_mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydb
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
+      MARIADB_ROOT_PASSWORD: rootpassword
+      MARIADB_DATABASE: mydb
+      MARIADB_USER: myuser
+      MARIADB_PASSWORD: mypassword
     ports:
       - "3306:3306"
     volumes:
@@ -16,8 +16,8 @@ services:
     image: th0masis/mappdatabase:6_0
     container_name: mappdatabase-01
     environment:
-      DB_HOST: my_mysql
-      DB_TYPE: mysql
+      DB_HOST: my_mariadb
+      DB_TYPE: mariadb
       DB_PORT: 3306
       POLL_INTERVAL: 20
     ports:
