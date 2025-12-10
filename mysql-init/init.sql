@@ -1,8 +1,8 @@
 -- Create a table
 CREATE TABLE employees (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name TEXT NOT NULL,
-    position TEXT NOT NULL
+    name VARCHAR(50) NOT NULL,
+    position VARCHAR(50) NOT NULL
 );
 
 -- Insert sample data
