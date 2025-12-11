@@ -26,7 +26,7 @@ services:
         "
 
   mappdatabase:
-    image: th0masis/mappdatabase:6_0
+    image: th0masis/mappdatabase:6_4
     container_name: mappdatabase-01
     environment:
       DB_HOST: my_mssql
@@ -35,6 +35,8 @@ services:
       POLL_INTERVAL: 20
     ports:
       - "86:85"
+    networks:
+      - mssql-net
 
 networks:
   mssql-net:
